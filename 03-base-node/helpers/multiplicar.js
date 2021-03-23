@@ -1,60 +1,33 @@
 const fs = require('fs')
-
-/**
- * Forma de manejar una promesa
- * Crea un archivo con un numero base
- * @param {base} base 
- * @returns retorna una tabla se multiplicar s
- * segun su base
- */
-const crearArchivo = (base = 5) => {
-
-    return new Promise((resolve, reject) => {
-        try {
-            console.log('===================')
-            console.log('=== TABLA DEL ', base)
-            console.log('===================')
-
-            let salida = ''
-            const path = `tabla-${base}.txt`
-
-            for (let i = 0; i <= 10; i++) {
-                salida += (`${base} x ${i} = ${base * i}\n`)
-            }
-
-            var datp = 1 / 0
-            fs.writeFileSync(path, salida)
-
-            resolve(salida)
-
-        } catch (err) {
-            reject(err)
-        }
-    })
-}
+const colors = require('colors')
 
 /**
  * Crea un archivo asyncronicamente
  * 
  */
-const crearArchivoAsync = async (base = 5) => {
+const crearArchivoAsync = async (base = 5, listar, hasta) => {
 
     try {
-        console.log('===================')
-        console.log('=== TABLA DEL ', base)
-        console.log('===================')
 
-        let salida = ''
-        const path = `tabla-${base}.txt`
+        let salida,consola = ''
+        const path = `./output/tabla-${base}.txt`
 
-        for (let i = 0; i <= 10; i++) {
+        for (let i = 0; i <= hasta; i++) {
             salida += (`${base} x ${i} = ${base * i}\n`)
+            consola += (`${base} ${colors.green('x')} ${i} ${'='.green} ${base * i}\n`)
+        }
+
+        if (listar) {
+            console.log('==================='.green)
+            console.log('=== TABLA DEL '.yellow, colors.cyan(base))
+            console.log('==================='.green)
+            console.log(consola)
         }
 
         fs.writeFileSync(path, salida)
 
         return salida
-        
+
     } catch (err) {
         throw err
     }
@@ -63,6 +36,5 @@ const crearArchivoAsync = async (base = 5) => {
 
 
 module.exports = {
-    crearArchivo,
     crearArchivoAsync
 }

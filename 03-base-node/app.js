@@ -1,11 +1,10 @@
-const { crearArchivo, crearArchivoAsync } = require('./helpers/multiplicar')
-const argv = require('yargs').argv
+require('yargs')
+require('colors')
+const { crearArchivoAsync } = require('./helpers/multiplicar')
+const argv = require('./config/yargs')
 
 console.clear()
 
-console.log(process.argv)
-console.log(argv)
-
-console.log('base: yargs',argv.base)
-
-console.log(argv.listar)
+crearArchivoAsync(argv.b,argv.l,argv.h)
+    .then(nombreArchivo => console.log(`Finaliza la creacion tabla del: ${argv.b}`.rainbow))
+    .catch(err => console.log(err));
