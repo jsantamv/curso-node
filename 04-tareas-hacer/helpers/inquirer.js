@@ -1,3 +1,4 @@
+const { registerPrompt } = require('inquirer');
 const inquirer = require('inquirer');
 require('colors')
 
@@ -10,35 +11,35 @@ const preguntas = [
         choices: [
             {
                 value: '1',
-                name: '1. Crear Tarea'
+                name: `${'1.'.green} Crear Tarea`
             },
             {
                 value: '2',
-                name: '2. Listar Tareas'
+                name: `${'2.'.green} Listar Tareas`
             },
             {
                 value: '3',
-                name: '3. Listar tareas completadas'
+                name: `${'3.'.green} Listar tareas completadas`
             },
             {
                 value: '4',
-                name: '4. Listar tareas pendientes'
+                name: `${'4.'.green} Listar tareas pendientes`
             },
             {
                 value: '5',
-                name: '5. Completar tarea(s)'
+                name: `${'5.'.green} Completar tarea(s)`
             },
             {
                 value: '6',
-                name: '6. Crear Tarea'
+                name: `${'6.'.green} Crear Tarea`
             },
             {
                 value: '7',
-                name: '7. Borrar Tarea'
+                name: `${'7.'.green} Borrar Tarea`
             },
             {
                 value: '0',
-                name: 'O. SALIR'
+                name: `${'O.'.green} SALIR`
             }
         ]
     }
@@ -50,25 +51,49 @@ const inquirerMenu = async () => {
     console.log('   SELECIONE UNA OPCION '.yellow)
     console.log('====================================\n'.green)
 
-    const { opt } = await inquirer.prompt(preguntas)
+    const { option } = await inquirer.prompt(preguntas)
 
-    return opt;
+    return option;
 }
 
 const pausa = async () => {
 
-    const quetion = [
+    const question = [
         {
             type: 'input',
             name: 'enter',
             message: `Presione ${'enter'.green} para continuar`
         }
     ]
+
     console.log('\n')
-    await inquirer.prompt(quetion)
+    await inquirer.prompt(question)
+}
+
+const leerInput = async (message) => {
+
+    console.log('etre')
+
+    const question = [
+        {
+            type: 'input',
+            name: 'desc',
+            message,
+            validate(value) {
+                if (value.length === 0) {
+                    return 'Por favor ingrese un valor'
+                }
+                return true;
+            }
+        }
+    ];
+
+    const { desc } = await inquirer.prompt(question)
+    return desc
 }
 
 module.exports = {
     inquirerMenu,
-    pausa
+    pausa,
+    leerInput
 }
