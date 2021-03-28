@@ -8,3 +8,6 @@
 
 https://www.mapbox.com/
 https://docs.mapbox.com/api/search/geocoding/
+
+## Variables entorno
+baseURL: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lugar}.json`,
