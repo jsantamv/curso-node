@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 require('dotenv').config()
 
 
@@ -6,6 +7,7 @@ class Server {
     constructor() {
         this.app = express()
         this.port = process.env.PORT
+        this.usersPath = '/api/users'
 
         //Middlewares 
         this.middleware()
@@ -16,40 +18,19 @@ class Server {
 
 
     middleware() {
+        //CORS        
+        this.app.use(cors())
+
+        //Lectura y Parseo del Body
+        //lo que viene formatea en JSON
+        this.app.use(express.json())
+
         // directorio publico
         this.app.use(express.static('public'))
     }
 
     routes() {
-        this.app.get('/api', (req, res) => {
-            res.status(403).json({
-                msg: "get api"
-            })
-        })
-
-        this.app.put('/api', (req, res) => {
-            res.status(403).json({
-                msg: "get api"
-            })
-        })
-
-        this.app.post('/api', (req, res) => {
-            res.status(403).json({
-                msg: "get api"
-            })
-        })
-
-        this.app.delete('/api', (req, res) => {
-            res.status(403).json({
-                msg: "get api"
-            })
-        })
-
-        this.app.patch('/api', (req, res) => {
-            res.status(403).json({
-                msg: "get api"
-            })
-        })
+        this.app.use(this.usersPath, require('../routes/user.routes'))
     }
 
     lisetn() {

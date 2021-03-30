@@ -4,4 +4,4 @@
 
 1. Express
 2. dotenv
-
+3. CORS https://www.npmjs.com/package/cors
