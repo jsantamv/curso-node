@@ -11,7 +11,8 @@ const router = Router()
 //Llamados
 router.get('/', usersGet)
 
-router.put('/', usersPut)
+//esta es la forma de enviar
+router.put('/:id', usersPut)
 
 router.post('/', usersPost)
 
